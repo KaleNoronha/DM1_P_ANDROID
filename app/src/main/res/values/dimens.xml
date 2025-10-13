@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Margins y Paddings -->
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+    
+    <!-- Card y Elevaciones -->
+    <dimen name="card_corner_radius">8dp</dimen>
+    <dimen name="card_elevation">4dp</dimen>
+    
+    <!-- Tamaños de texto -->
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
+    <dimen name="text_size_title">24sp</dimen>
+    
+    <!-- Alturas específicas -->
+    <dimen name="search_bar_height">48dp</dimen>
+    <dimen name="stats_card_height">80dp</dimen>
+    <dimen name="button_height">48dp</dimen>
+    
+    <!-- Anchos -->
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="stock_indicator_size">12dp</dimen>
+</resources>

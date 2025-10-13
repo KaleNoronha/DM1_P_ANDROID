@@ -2,4 +2,24 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    
+    <!-- Colores principales -->
+    <color name="primary_blue">#2196F3</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="accent_green">#4CAF50</color>
+    
+    <!-- Colores de estado -->
+    <color name="stock_alto">#4CAF50</color>
+    <color name="stock_medio">#FF9800</color>
+    <color name="stock_bajo">#F44336</color>
+    
+    <!-- Colores de fondo -->
+    <color name="background_light">#F5F5F5</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="divider_color">#E0E0E0</color>
+    
+    <!-- Colores de texto -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#BDBDBD</color>
 </resources>

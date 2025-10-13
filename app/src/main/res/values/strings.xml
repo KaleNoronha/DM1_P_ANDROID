@@ -1,3 +1,54 @@
 <resources>
-    <string name="app_name">DM1_P_ANDROID</string>
+    <string name="app_name">Control de Inventario</string>
+    
+    <!-- Pantalla Principal -->
+    <string name="titulo_inventario">Control de Inventario</string>
+    <string name="buscar_producto">Buscar producto...</string>
+    <string name="agregar_producto">Agregar Producto</string>
+    <string name="lista_productos">Lista de Productos</string>
+    
+    <!-- Formulario Producto -->
+    <string name="nombre_producto">Nombre del Producto</string>
+    <string name="codigo_producto">Código</string>
+    <string name="cantidad_producto">Cantidad</string>
+    <string name="precio_producto">Precio</string>
+    <string name="categoria_producto">Categoría</string>
+    <string name="descripcion_producto">Descripción</string>
+    
+    <!-- Botones -->
+    <string name="btn_guardar">Guardar</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_editar">Editar</string>
+    <string name="btn_eliminar">Eliminar</string>
+    
+    <!-- Estados -->
+    <string name="stock_bajo">Stock Bajo</string>
+    <string name="sin_stock">Sin Stock</string>
+    <string name="disponible">Disponible</string>
+    
+    <!-- Mensajes -->
+    <string name="producto_guardado">Producto guardado exitosamente</string>
+    <string name="producto_eliminado">Producto eliminado</string>
+    <string name="error_campos_vacios">Por favor complete todos los campos</string>
+    <string name="no_productos">No hay productos registrados</string>
+    
+    <!-- Autenticación -->
+    <string name="login">Iniciar Sesión</string>
+    <string name="registro">Registrarse</string>
+    <string name="email">Correo Electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="confirmar_password">Confirmar Contraseña</string>
+    <string name="nombre_usuario">Nombre de Usuario</string>
+    <string name="olvidaste_password">¿Olvidaste tu contraseña?</string>
+    <string name="no_tienes_cuenta">¿No tienes cuenta? Regístrate</string>
+    <string name="ya_tienes_cuenta">¿Ya tienes cuenta? Inicia sesión</string>
+    <string name="bienvenido">Bienvenido</string>
+    <string name="crear_cuenta">Crear Cuenta</string>
+    
+    <!-- Errores de autenticación -->
+    <string name="error_email_invalido">Email inválido</string>
+    <string name="error_password_corta">La contraseña debe tener al menos 6 caracteres</string>
+    <string name="error_passwords_no_coinciden">Las contraseñas no coinciden</string>
+    <string name="error_login">Error al iniciar sesión</string>
+    <string name="error_registro">Error al registrarse</string>
 </resources>

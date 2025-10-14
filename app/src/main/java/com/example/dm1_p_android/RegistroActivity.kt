@@ -31,6 +31,7 @@ class RegistroActivity : AppCompatActivity() {
         btnRegistro = findViewById(R.id.btnRegistro)
         tvIrALogin = findViewById(R.id.tvIrALogin)
 
+        // Mandar de regreso al Login
         tvIrALogin?.setOnClickListener {
             cambioActivity(LoginActivity::class.java)
         }

@@ -8,10 +8,13 @@
     <string name="lista_productos">Lista de Productos</string>
     
     <!-- Formulario Producto -->
+    <string name="titulo_agregar_producto">Agregar Producto</string>
     <string name="nombre_producto">Nombre del Producto</string>
+    <string name="cod_pro">Codigo del producto</string>
     <string name="codigo_producto">Código</string>
     <string name="cantidad_producto">Cantidad</string>
     <string name="precio_producto">Precio</string>
+    <string name="uni_medida">Unidad de Medida</string>
     <string name="categoria_producto">Categoría</string>
     <string name="descripcion_producto">Descripción</string>
     
@@ -51,4 +54,8 @@
     <string name="error_passwords_no_coinciden">Las contraseñas no coinciden</string>
     <string name="error_login">Error al iniciar sesión</string>
     <string name="error_registro">Error al registrarse</string>
+    <!-- Menu.xml -->
+    <string name="inicio_menu">Inicio</string>
+    <string name="opciones_menu">Opciones</string>
+    <string name="config_menu">Configuracion</string>
 </resources>

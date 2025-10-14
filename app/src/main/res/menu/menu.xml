@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/itInicio"
+            android:title="@string/inicio_menu"
+            android:icon="@drawable/ic_inicio"/>
+        <item
+            android:id="@+id/itOpciones"
+            android:title="@string/opciones_menu"
+            android:icon="@drawable/ic_opciones"/>
+        <item
+            android:id="@+id/itConfig"
+            android:icon="@drawable/ic_config"
+            android:title="@string/config_menu" />
+    </group>
+
+</menu>

@@ -63,6 +63,7 @@
                     android:padding="16dp">
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilNombre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
@@ -70,13 +71,14 @@
                         app:boxStrokeColor="@color/primary_blue">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etNombre"
+                            android:id="@+id/tietNombre"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textCapWords"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilCodigoProducto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
@@ -84,7 +86,7 @@
                         app:boxStrokeColor="@color/primary_blue">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_cod_pro"
+                            android:id="@+id/tietCodigoProducto"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textCapWords"/>
@@ -98,6 +100,7 @@
                         android:orientation="horizontal">
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilCantidad"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -106,13 +109,14 @@
                             app:boxStrokeColor="@color/primary_blue">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etCantidad"
+                                android:id="@+id/tietCantidad"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="number"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilPrecio"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -123,51 +127,57 @@
                             app:prefixText="$">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etPrecio"
+                                android:id="@+id/tietPrecio"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="numberDecimal"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="6dp"
-                            android:hint="@string/uni_medida"
-                            app:boxStrokeColor="@color/primary_blue">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/eti_uni_medida"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="textCapWords"/>
-                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilUnidadMedida"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="Unidad de medida">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/actvUnidadMedida"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none"
+                            android:focusable="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilCategoria"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
                         android:hint="@string/categoria_producto"
                         app:boxStrokeColor="@color/primary_blue">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etCategoria"
+                            android:id="@+id/tietCategoria"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textCapWords"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilDescripcion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         android:hint="@string/descripcion_producto"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="250"
                         app:boxStrokeColor="@color/primary_blue">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etDescripcion"
+                            android:id="@+id/tietDescripcion"
                             android:layout_width="match_parent"
                             android:layout_height="96dp"
                             android:inputType="textMultiLine"
@@ -213,8 +223,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/primary_blue"
-        app:menu="@menu/menu"
-        app:layout_constraintStart_toStartOf="parent"
+        app:itemIconSize="25dp"
+        app:itemGravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,6 @@ class ProductoDAO(context: Context) {
     fun agregar(producto : Producto) : Long {
         val db = dbHelper.writableDatabase
         val valores = ContentValues().apply {
-            put("id", producto.idProd)
             put("nom_pro", producto.nomProd)
             put("cod_pro", producto.codProd)
             put("stock", producto.stoProd)
@@ -26,4 +25,32 @@ class ProductoDAO(context: Context) {
         }
         return db.insert("producto", null, valores)
     }
+    fun listar(idProducto: Producto): List<Producto> {
+        val db = dbHelper.readableDatabase
+        val lista = mutableListOf<Producto>()
+        val cursor = db.rawQuery(
+            "SELECT * FROM producto ORDER BY id DESC",
+            arrayOf(idProducto.toString()))
+        while (cursor.moveToNext()) {
+            lista.add(
+                Producto(
+                    idProd      = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                    nomProd     = cursor.getString(cursor.getColumnIndexOrThrow("nom_pro")),
+                    codProd     = cursor.getString(cursor.getColumnIndexOrThrow("cod_pro")),
+                    stoProd     = cursor.getInt(cursor.getColumnIndexOrThrow("stock")),
+                    uniMedida   = cursor.getString(cursor.getColumnIndexOrThrow("uni_medida")),
+                    preProd     = cursor.getDouble(cursor.getColumnIndexOrThrow("precio")),
+                    fecInc      = cursor.getString(cursor.getColumnIndexOrThrow("fec_in")),
+                    desProd     = cursor.getString(cursor.getColumnIndexOrThrow("des_pro")),
+                    idUsuario   = cursor.getInt(cursor.getColumnIndexOrThrow("id_usu")),
+                    idCategoria = cursor.getInt(cursor.getColumnIndexOrThrow("id_cat")),
+                    idProveedor = cursor.getInt(cursor.getColumnIndexOrThrow("id_pro"))
+                )
+            )
+        }
+        cursor.close()
+        db.close()
+        return lista
+    }
+
 }

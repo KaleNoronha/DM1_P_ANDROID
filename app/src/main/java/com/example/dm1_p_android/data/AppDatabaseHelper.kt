@@ -47,6 +47,7 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, "Inventari
         uni_medida TEXT,
         precio REAL,
         fec_in TEXT,
+        des_pro TEXT,
         id_usu INTEGER,
         id_cat INTEGER,
         id_pro INTEGER,

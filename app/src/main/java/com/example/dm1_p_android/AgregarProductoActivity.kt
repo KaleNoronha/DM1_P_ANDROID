@@ -1,4 +1,5 @@
 package com.example.dm1_p_android
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -8,10 +9,25 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.dm1_p_android.entity.Producto
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 class AgregarProductoActivity : AppCompatActivity() {
+    companion object {
+        val listaProductos = mutableListOf<Producto>()
+    }
+    private fun convertirUnidades(unidad: String): Double{
+        return when(unidad){
+            "Kilogramos" -> 1.0
+            "Litros" -> 2.0
+            "Unidades" -> 3.0
+            "Metros" -> 4.0
+            "Cajas" -> 5.0
+            else -> 0.0
+        }
+    }
+
     private lateinit var tilNombreProd : TextInputLayout
     private lateinit var tietNombreProd : TextInputEditText
     private lateinit var tilCodigoProd : TextInputLayout
@@ -26,7 +42,11 @@ class AgregarProductoActivity : AppCompatActivity() {
     private lateinit var tietCategoria : TextInputEditText
     private lateinit var tilDescripcion : TextInputLayout
     private lateinit var tietDescripcion : TextInputEditText
-    private lateinit var btnGuardar : Button
+
+    var btnCancelar: Button?=null
+    var btnGuardar : Button?=null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,10 +65,12 @@ class AgregarProductoActivity : AppCompatActivity() {
         actvUnidadMedida = findViewById(R.id.actvUnidadMedida)
         tilDescripcion = findViewById(R.id.tilDescripcion)
         tietDescripcion = findViewById(R.id.tietDescripcion)
-        btnGuardar = findViewById(R.id.btnGuardar)
-
-        tilCategoria = findViewById(R.id.tilCategoria)
         tietCategoria = findViewById(R.id.tietCategoria)
+        //variables de acciones para botones
+        btnGuardar = findViewById(R.id.btnGuardar)
+        btnCancelar=findViewById(R.id.btnCancelar)
+        tilCategoria = findViewById(R.id.tilCategoria)
+
 
         val unidades = listOf("Kilogramos", "Litros", "Unidades", "Metros", "Cajas")
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, unidades)
@@ -121,14 +143,22 @@ class AgregarProductoActivity : AppCompatActivity() {
             // Usar logica luego de guardar
         }
 
-        btnGuardar.setOnClickListener {
+        btnGuardar?.setOnClickListener {
             validarCampos()
         }
+        btnCancelar?.setOnClickListener {
+            cancelar()
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
+    }
+    fun cancelar(){
+        val intent= Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 }

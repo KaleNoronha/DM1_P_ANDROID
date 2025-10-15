@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var tvIrARegistro: TextView
     private lateinit var tvOlvidastePassword : TextView
     private val listaUsuarios = mutableListOf(
-        Usuario(1,"Carlos Daniel","Carrasco Siccha","ccarrasco","974144528","M","ccarrascosiccha@gmail.com","123a")
+        Usuario(1,"Carlos Daniel","Carrasco Siccha","ccarrasco","974144528","M","carrasco@gmail.com","123")
     )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

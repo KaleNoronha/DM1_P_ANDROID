@@ -8,6 +8,7 @@ class ProductoDAO(context: Context) {
 
     private val dbHelper = AppDatabaseHelper(context)
 
+    //Funcion para agregar contenido a la tabla producto
     fun agregar(producto : Producto) : Long {
         val db = dbHelper.writableDatabase
         val valores = ContentValues().apply {

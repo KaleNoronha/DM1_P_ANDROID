@@ -10,7 +10,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dm1_p_android.adapter.ProductoAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -57,5 +59,25 @@ class MainActivity : AppCompatActivity() {
         fabAgregarProducto.setOnClickListener {
             cambioActivity(AgregarProductoActivity::class.java)
         }
+        
+        actualizarUI()
+    }
+    
+    override fun onResume() {
+        super.onResume()
+        actualizarUI()
+    }
+    
+    private fun actualizarUI() {
+        val productos = AgregarProductoActivity.listaProductos
+        
+        // Actualizar estadísticas
+        tvTotalProductos.text = productos.size.toString()
+        tvStockBajo.text = productos.count { it.stoProd.toIntOrNull() ?: 0 < 10 }.toString()
+        tvValorTotal.text = "$${productos.sumOf { it.preProd * (it.stoProd.toIntOrNull() ?: 0) }}"
+        
+        // Configurar RecyclerView
+        rvProductos.layoutManager = LinearLayoutManager(this)
+        rvProductos.adapter = ProductoAdapter(productos)
     }
 }

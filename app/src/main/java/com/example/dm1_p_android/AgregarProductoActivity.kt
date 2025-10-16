@@ -137,10 +137,25 @@ class AgregarProductoActivity : AppCompatActivity() {
 
             if (error) return
 
-            // Si llega aquí, todos los campos están llenos
-            Toast.makeText(this, "Todos los campos son válidos", Toast.LENGTH_SHORT).show()
-
-            // Usar logica luego de guardar
+            // Crear y guardar el producto
+            val producto = Producto(
+                idProd = listaProductos.size + 1,
+                nomProd = nombre,
+                codProd = codigo,
+                stoProd = cantidad,
+                preProd = precio.toDouble(),
+                uniMedida = convertirUnidades(unidadMedida),
+                Categoria = categoria,
+                desProd = descripcion
+            )
+            
+            listaProductos.add(producto)
+            Toast.makeText(this, "Producto guardado exitosamente", Toast.LENGTH_SHORT).show()
+            
+            // Volver a MainActivity
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         btnGuardar?.setOnClickListener {

@@ -17,11 +17,11 @@ class ProductoDAO(context: Context) {
             put("stock", producto.stoProd)
             put("uni_medida", producto.uniMedida)
             put("precio", producto.preProd)
-            put("fec_in", producto.fecInc)
+//            put("fec_in", producto.fecInc)
             put("des_pro", producto.desProd)
-            put("id_usu", producto.idUsuario)
-            put("id_cat", producto.idCategoria)
-            put("id_pro", producto.idProveedor)
+//            put("id_usu", producto.idUsuario)
+            put("id_cat", producto.Categoria)
+//            put("id_pro", producto.idProveedor)
         }
         return db.insert("producto", null, valores)
     }
@@ -37,14 +37,14 @@ class ProductoDAO(context: Context) {
                     idProd      = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
                     nomProd     = cursor.getString(cursor.getColumnIndexOrThrow("nom_pro")),
                     codProd     = cursor.getString(cursor.getColumnIndexOrThrow("cod_pro")),
-                    stoProd     = cursor.getInt(cursor.getColumnIndexOrThrow("stock")),
-                    uniMedida   = cursor.getString(cursor.getColumnIndexOrThrow("uni_medida")),
+                    stoProd     = cursor.getString(cursor.getColumnIndexOrThrow("stock")),
+                    uniMedida   = cursor.getDouble(cursor.getColumnIndexOrThrow("uni_medida")),
                     preProd     = cursor.getDouble(cursor.getColumnIndexOrThrow("precio")),
-                    fecInc      = cursor.getString(cursor.getColumnIndexOrThrow("fec_in")),
+//                    fecInc      = cursor.getString(cursor.getColumnIndexOrThrow("fec_in")),
                     desProd     = cursor.getString(cursor.getColumnIndexOrThrow("des_pro")),
-                    idUsuario   = cursor.getInt(cursor.getColumnIndexOrThrow("id_usu")),
-                    idCategoria = cursor.getInt(cursor.getColumnIndexOrThrow("id_cat")),
-                    idProveedor = cursor.getInt(cursor.getColumnIndexOrThrow("id_pro"))
+//                    idUsuario   = cursor.getInt(cursor.getColumnIndexOrThrow("id_usu")),
+                    Categoria = cursor.getString(cursor.getColumnIndexOrThrow("id_cat")),
+//                    idProveedor = cursor.getInt(cursor.getColumnIndexOrThrow("id_pro"))
                 )
             )
         }

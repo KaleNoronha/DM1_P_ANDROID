@@ -24,7 +24,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var tvIrARegistro: TextView
     private lateinit var tvOlvidastePassword : TextView
     private val listaUsuarios = mutableListOf(
-        Usuario(1,"Carlos Daniel","Carrasco Siccha","ccarrasco","974144528","M","test@gmail.com","123a")
+        Usuario(1,"Carlos Daniel","Carrasco Siccha","ccarrasco","974144528","M","test@gmail.com","123a"),
+        Usuario(2,"kaled ","noronha leon","knoronha","940352822","M","knoronha@test.com","system32")
     )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,13 +58,13 @@ class LoginActivity : AppCompatActivity() {
                 tilPassword.error="Ingrese la contraseña"
                 error=true
             }else {
-                tilEmail.error=""
+                tilPassword.error=""
             }
             if (error) return
             else{
                 var usuFounded : Usuario?= null
                 for (u in listaUsuarios) {
-                    if (u.correo == email  && u.clave == password) {
+                    if (u.correo == email && u.clave == password) {
                         usuFounded = u
                         break
                     }

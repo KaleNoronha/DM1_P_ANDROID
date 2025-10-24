@@ -4,12 +4,12 @@ data class Producto (
     val idProd : Int = 0,
     val nomProd : String = "",
     val codProd : String = "",
-    val stoProd : Int = 0,
-    val uniMedida : String = "",
+    val stoProd : String = "",
+    val uniMedida : Double = 0.0,
     val preProd : Double = 0.0,
-    val fecInc : String = "",
+    //val fecInc : String = "",
     val desProd : String = "",
-    val idUsuario : Int,
-    val idCategoria : Int,
-    val idProveedor : Int
+//    val idUsuario : Int,
+    val Categoria : String="",
+//    val idProveedor : Int
 )

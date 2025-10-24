@@ -63,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
             else{
                 var usuFounded : Usuario?= null
                 for (u in listaUsuarios) {
-                    if (u.correo == email + "@gmail.com" && u.clave == password) {
+                    if (u.correo == email  && u.clave == password) {
                         usuFounded = u
                         break
                     }

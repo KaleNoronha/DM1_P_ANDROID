@@ -124,7 +124,7 @@
                             android:layout_marginEnd="6dp"
                             android:hint="@string/precio_producto"
                             app:boxStrokeColor="@color/primary_blue"
-                            app:prefixText="$">
+                            app:prefixText="S/">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/tietPrecio"
@@ -150,21 +150,45 @@
                             android:focusable="true" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilCategoria"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
-                        android:hint="@string/categoria_producto"
-                        app:boxStrokeColor="@color/primary_blue">
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tietCategoria"
-                            android:layout_width="match_parent"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilCategoria"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:inputType="textCapWords"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            android:hint="@string/categoria_producto"
+                            app:boxStrokeColor="@color/primary_blue">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/actvCategoria"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none"
+                                android:focusable="true" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/btnAgregarCategoria"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:backgroundTint="@color/accent_green"
+                            android:minWidth="48dp"
+                            android:minHeight="48dp"
+                            android:layout_gravity="center_vertical" />
+                    </LinearLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilDescripcion"

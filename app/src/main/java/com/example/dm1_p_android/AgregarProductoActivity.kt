@@ -1,15 +1,19 @@
 package com.example.dm1_p_android
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.dm1_p_android.entity.Producto
+import com.example.dm1_p_android.entity.Categoria
+import com.example.dm1_p_android.data.CategoriaDAO
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -39,12 +43,13 @@ class AgregarProductoActivity : AppCompatActivity() {
     private lateinit var tilUnidadMedida : TextInputLayout
     private lateinit var actvUnidadMedida: AutoCompleteTextView
     private lateinit var tilCategoria : TextInputLayout
-    private lateinit var tietCategoria : TextInputEditText
+    private lateinit var actvCategoria: AutoCompleteTextView
     private lateinit var tilDescripcion : TextInputLayout
     private lateinit var tietDescripcion : TextInputEditText
 
     var btnCancelar: Button?=null
     var btnGuardar : Button?=null
+    var btnAgregarCategoria: Button?=null
 
 
 
@@ -65,23 +70,25 @@ class AgregarProductoActivity : AppCompatActivity() {
         actvUnidadMedida = findViewById(R.id.actvUnidadMedida)
         tilDescripcion = findViewById(R.id.tilDescripcion)
         tietDescripcion = findViewById(R.id.tietDescripcion)
-        tietCategoria = findViewById(R.id.tietCategoria)
-        //variables de acciones para botones
+        tilCategoria = findViewById(R.id.tilCategoria)
+        actvCategoria = findViewById(R.id.actvCategoria)
         btnGuardar = findViewById(R.id.btnGuardar)
         btnCancelar=findViewById(R.id.btnCancelar)
-        tilCategoria = findViewById(R.id.tilCategoria)
+        btnAgregarCategoria = findViewById(R.id.btnAgregarCategoria)
 
 
         val unidades = listOf("Kilogramos", "Litros", "Unidades", "Metros", "Cajas")
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, unidades)
         actvUnidadMedida.setAdapter(adapter)
+
+        cargarCategorias()
         fun validarCampos() {
             val nombre = tietNombreProd.text.toString().trim()
             val codigo = tietCodigoProd.text.toString().trim()
             val cantidad = tietCantidad.text.toString().trim()
             val precio = tietPrecio.text.toString().trim()
             val unidadMedida = actvUnidadMedida.text.toString().trim()
-            val categoria = tietCategoria.text.toString().trim()
+            val categoria = actvCategoria.text.toString().trim()
             val descripcion = tietDescripcion.text.toString().trim()
 
             var error = false
@@ -137,16 +144,22 @@ class AgregarProductoActivity : AppCompatActivity() {
 
             if (error) return
 
-            // Crear y guardar el producto
+            val categoriaDAO = CategoriaDAO(this)
+            val categoriaSeleccionada = categoriaDAO.listarCategorias().find { it.nomCat == categoria }
+            val idCategoria = categoriaSeleccionada?.idCat ?: 1 // Usar ID 1 como fallback
+
             val producto = Producto(
                 idProd = listaProductos.size + 1,
                 nomProd = nombre,
                 codProd = codigo,
-                stoProd = cantidad,
+                stoProd = cantidad.toInt(),
+                uniMedida = unidadMedida,
                 preProd = precio.toDouble(),
-                uniMedida = convertirUnidades(unidadMedida),
-                Categoria = categoria,
-                desProd = descripcion
+                fecInc = "",
+                desProd = descripcion,
+                idUsuario = 1,
+                idCategoria = idCategoria,
+                idProveedor = 1
             )
             
             listaProductos.add(producto)
@@ -164,6 +177,9 @@ class AgregarProductoActivity : AppCompatActivity() {
         btnCancelar?.setOnClickListener {
             cancelar()
         }
+        btnAgregarCategoria?.setOnClickListener {
+            mostrarDialogoAgregarCategoria()
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -175,5 +191,74 @@ class AgregarProductoActivity : AppCompatActivity() {
     fun cancelar(){
         val intent= Intent(this, MainActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun cargarCategorias() {
+        try {
+            val categoriaDAO = CategoriaDAO(this)
+
+            categoriaDAO.insertarCategoriasIniciales()
+            
+            val categorias = categoriaDAO.listarCategorias()
+            
+            if (categorias.isNotEmpty()) {
+                val nombresCategorias = categorias.map { it.nomCat }
+                val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, nombresCategorias)
+                actvCategoria.setAdapter(adapter)
+            } else {
+                Toast.makeText(this, "No hay categorías registradas en la base de datos", Toast.LENGTH_LONG).show()
+            }
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error al cargar categorías: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun mostrarDialogoAgregarCategoria() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_agregar_categoria, null)
+        
+        val tilNuevaCategoria = dialogView.findViewById<com.google.android.material.textfield.TextInputLayout>(R.id.tilNuevaCategoria)
+        val tietNuevaCategoria = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etNuevaCategoria)
+        val btnGuardarDialog = dialogView.findViewById<Button>(R.id.btnGuardarDialog)
+        val btnCancelarDialog = dialogView.findViewById<Button>(R.id.btnCancelarDialog)
+
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        btnGuardarDialog.setOnClickListener {
+            val nombreCategoria = tietNuevaCategoria.text.toString().trim()
+            
+            if (nombreCategoria.isEmpty()) {
+                tilNuevaCategoria.error = "Ingrese el nombre de la categoría"
+                return@setOnClickListener
+            }
+
+            val categoriaDAO = CategoriaDAO(this)
+            val categoriasExistentes = categoriaDAO.listarCategorias()
+            
+            if (categoriasExistentes.any { it.nomCat.equals(nombreCategoria, ignoreCase = true) }) {
+                tilNuevaCategoria.error = "Esta categoría ya existe"
+                return@setOnClickListener
+            }
+
+            val nuevaCategoria = Categoria(idCat = 0, nomCat = nombreCategoria)
+            val resultado = categoriaDAO.agregarCategoria(nuevaCategoria)
+            
+            if (resultado > 0) {
+                Toast.makeText(this, "Categoría agregada exitosamente", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+                cargarCategorias()
+                actvCategoria.setText(nombreCategoria, false)
+            } else {
+                Toast.makeText(this, "Error al agregar la categoría", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        btnCancelarDialog.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 }

@@ -67,6 +67,7 @@
 
                 <!-- Nombre de Usuario -->
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilNombreUsuario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
@@ -84,6 +85,7 @@
 
                 <!-- Email -->
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilEmailRegistro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
@@ -101,6 +103,7 @@
 
                 <!-- Password -->
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilPasswordRegistro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
@@ -119,6 +122,7 @@
 
                 <!-- Confirmar Password -->
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilConfirmarPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
@@ -134,6 +138,17 @@
                         android:inputType="textPassword" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/mcbTCP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Acepto los términos y condiciones y la política de privacidad"
+                    android:layout_marginBottom="16dp"
+                    android:button="@drawable/ic_checkbox"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:layout_marginEnd="16dp"/>
 
                 <!-- Botón Registro -->
                 <Button

@@ -152,14 +152,10 @@ class AgregarProductoActivity : AppCompatActivity() {
                 idProd = listaProductos.size + 1,
                 nomProd = nombre,
                 codProd = codigo,
-                stoProd = cantidad.toInt(),
-                uniMedida = unidadMedida,
+                stoProd = cantidad,
+                uniMedida = unidadMedida.toDouble(),
                 preProd = precio.toDouble(),
-                fecInc = "",
-                desProd = descripcion,
-                idUsuario = 1,
-                idCategoria = idCategoria,
-                idProveedor = 1
+                desProd = descripcion
             )
             
             listaProductos.add(producto)

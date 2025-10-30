@@ -109,9 +109,9 @@ class RegistroActivity : AppCompatActivity() {
                 val dbHelper = AppDatabaseHelper(this@RegistroActivity)
                 val db = dbHelper.writableDatabase
                 val valores = ContentValues().apply {
-                    put("nom_usu", etNombreUsuario.toString().trim())
-                    put("correo", etEmailRegistro.toString().trim())
-                    put("clave", etPasswordRegistro.toString().trim())
+                    put("nom_usu", etNombreUsuario.text.toString().trim())
+                    put("correo", etEmailRegistro.text.toString().trim())
+                    put("clave", etPasswordRegistro.text.toString().trim())
                 }
                 val id = db.insert("usuarios", null, valores)
                 db.close()

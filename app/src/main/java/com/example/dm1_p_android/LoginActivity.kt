@@ -10,9 +10,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.dm1_p_android.data.AppDatabaseHelper
 import com.example.dm1_p_android.entity.Usuario
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LoginActivity : AppCompatActivity() {
 
@@ -23,10 +28,10 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var btnLogin : Button
     private lateinit var tvIrARegistro: TextView
     private lateinit var tvOlvidastePassword : TextView
-    private val listaUsuarios = mutableListOf(
-        Usuario(1,"Carlos Daniel","Carrasco Siccha","ccarrasco","974144528","M","test@gmail.com","123a"),
-        Usuario(2,"kaled ","noronha leon","knoronha","940352822","M","knoronha@test.com","system32")
-    )
+//    private val listaUsuarios = mutableListOf(
+//        Usuario(1,"Carlos Daniel","Carrasco Siccha","ccarrasco","974144528","M","test@gmail.com","123a"),
+//        Usuario(2,"kaled ","noronha leon","knoronha","940352822","M","knoronha@test.com","system32")
+//    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -40,46 +45,8 @@ class LoginActivity : AppCompatActivity() {
         tvIrARegistro =findViewById(R.id.tvIrARegistro)
         tvOlvidastePassword  =findViewById(R.id.tvOlvidastePassword)
 
-        fun cambioActivity(activityDestino: Class<out Activity>) {
-            val intent = Intent(this, activityDestino)
-            startActivity(intent)
-        }
-        fun validarCampos(){
-            val email = etEmail.text.toString().trim()
-            val password= etPassword.text.toString().trim()
-            var error  :Boolean =false
-            if (email.isEmpty()){
-                tilEmail.error="Ingrese un correo"
-                error=true
-            }else {
-                tilEmail.error=""
-            }
-            if (password.isEmpty()){
-                tilPassword.error="Ingrese la contraseña"
-                error=true
-            }else {
-                tilPassword.error=""
-            }
-            if (error) return
-            else{
-                var usuFounded : Usuario?= null
-                for (u in listaUsuarios) {
-                    if (u.correo == email && u.clave == password) {
-                        usuFounded = u
-                        break
-                    }
-                }
-                if (usuFounded !=null) {
-                    Toast.makeText(this, "Bienvenido ${usuFounded.nombres}", Toast.LENGTH_SHORT).show()
-                    cambioActivity(MainActivity::class.java)
-                }else {
-                    Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_LONG).show()
-
-                }
-            }
-        }
         btnLogin.setOnClickListener {
-                validarCampos()
+            validarCampos()
         }
         tvIrARegistro.setOnClickListener {
             cambioActivity(RegistroActivity::class.java)
@@ -94,4 +61,53 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
     }
+
+    fun cambioActivity(activityDestino : Class<out Activity>) {
+        val intent = Intent(this, activityDestino)
+        startActivity(intent)
+    }
+    fun validarCampos(){
+        val email = etEmail.text.toString().trim()
+        val password= etPassword.text.toString().trim()
+        var error = false
+        if (email.isEmpty()){
+            tilEmail.error = "Ingrese un correo"
+            error = true
+        }else {
+            tilEmail.error=""
+        }
+        if (password.isEmpty()){
+            tilPassword.error = "Ingrese la contraseña"
+            error = true
+        } else {
+            tilPassword.error=""
+        }
+        if (error) {
+            return
+        } else {
+            CoroutineScope(Dispatchers.Main).launch {
+                val usuarioEncontrado = withContext(Dispatchers.IO) {
+                    val dbHelper = AppDatabaseHelper(this@LoginActivity)
+                    val db = dbHelper.readableDatabase
+                    val cursor = db.rawQuery(
+                        "SELECT * FROM usuarios WHERE correo = ? AND clave = ?",
+                        arrayOf(email, password)
+                    )
+                    val user = if (cursor.moveToFirst()) {
+                        cursor.getInt(cursor.getColumnIndexOrThrow("id"))
+                    } else null
+                    cursor.close()
+                    db.close()
+                    user
+                }
+                if (usuarioEncontrado != null) {
+                    Toast.makeText(this@LoginActivity, "Bienvenido ", Toast.LENGTH_LONG).show()
+                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                } else {
+                    Toast.makeText(this@LoginActivity, "Email o contraseña incorrectos", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
 }

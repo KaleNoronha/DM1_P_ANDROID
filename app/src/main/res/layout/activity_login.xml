@@ -71,14 +71,18 @@
                     android:layout_marginBottom="16dp"
                     android:hint="@string/email"
                     app:cursorColor="@color/black"
+                    android:textColorHint="@color/black"
                     app:boxStrokeColor="@color/primary_blue"
-                    app:startIconDrawable="@drawable/ic_email">
+                    app:hintTextColor="@color/black"
+                    app:startIconDrawable="@drawable/ic_email"
+                    app:startIconTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEmail"
                         android:textColorHint="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
                         android:textColor="@color/black"
                         android:inputType="textEmailAddress" />
 
@@ -91,9 +95,11 @@
                     android:layout_marginBottom="8dp"
                     android:hint="@string/password"
                     app:cursorColor="@color/black"
+                    android:textColorHint="@color/black"
                     app:boxStrokeColor="@color/primary_blue"
                     app:endIconMode="password_toggle"
-                    app:startIconDrawable="@drawable/ic_lock">
+                    app:startIconDrawable="@drawable/ic_lock"
+                    app:startIconTint="@color/black">>
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPassword"

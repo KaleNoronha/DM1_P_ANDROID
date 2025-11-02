@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.dm1_p_android.AgregarProductoActivity
+import com.example.dm1_p_android.LoginActivity
 import com.example.dm1_p_android.R
 import com.example.dm1_p_android.RegistroActivity
 import com.example.dm1_p_android.data.CategoriaDAO
@@ -39,7 +40,8 @@ class OpcionesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_opciones, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(view) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         fun toggle(menu: View, chevron: ImageView) {
             val showing = menu.visibility == View.VISIBLE
@@ -167,7 +169,6 @@ class OpcionesFragment : Fragment() {
                 }
             }
         }
-
     }
     private fun mostrarDialogCerrarSesion() {
         AlertDialog.Builder(requireContext())

@@ -10,7 +10,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.util.Log
 import com.example.dm1_p_android.data.AppDatabaseHelper
+import com.example.dm1_p_android.entity.Usuario
+import com.example.dm1_p_android.network.FirebaseUsuarioService
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -86,13 +89,16 @@ class RegistroActivity : AppCompatActivity() {
         } else {
             tilEmailRegistro.error = ""
         }
-        if (etPasswordRegistro.text.toString().trim().isEmpty()) {
+        val password = etPasswordRegistro.text.toString().trim()
+        if (password.isEmpty()) {
             tilPasswordRegistro.error = "Ingrese contraseña"
+            error = true
+        } else if (password.length < 6) {
+            tilPasswordRegistro.error = "La contraseña debe tener al menos 6 caracteres"
             error = true
         } else {
             tilPasswordRegistro.error = ""
         }
-        val password = etPasswordRegistro.text.toString().trim()
         val confirmPassword = etConfirmarPassword.text.toString().trim()
         if (confirmPassword.isEmpty()) {
             tilConfirmarPassword.error = "Confirme la contraseña"
@@ -115,6 +121,19 @@ class RegistroActivity : AppCompatActivity() {
                 }
                 val id = db.insert("usuarios", null, valores)
                 db.close()
+                
+                // Sincronizar con Firebase
+                if (id > 0) {
+                    Log.d("RegistroActivity", "Usuario guardado en SQLite con ID: $id")
+                    val usuario = Usuario(
+                        id = id.toInt(),
+                        nomUSU = etNombreUsuario.text.toString().trim(),
+                        correo = etEmailRegistro.text.toString().trim(),
+                        clave = etPasswordRegistro.text.toString().trim()
+                    )
+                    val firebaseResult = FirebaseUsuarioService().registrarUsuario(usuario)
+                    Log.d("RegistroActivity", "Resultado Firebase: $firebaseResult")
+                }
                 id
             }
             if (resultado > 0) {

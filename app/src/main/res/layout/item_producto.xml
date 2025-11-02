@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,18 +31,18 @@
                     android:id="@+id/tvNombreProducto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre del Producto"
                     android:textColor="@color/text_primary"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="Laptop HP Pavilion" />
 
                 <TextView
                     android:id="@+id/tvCodigoProducto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="COD001"
                     android:textColor="@color/text_secondary"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:text="COD-12345" />
 
             </LinearLayout>
 
@@ -79,10 +81,10 @@
                     android:id="@+id/tvCantidad"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
                     android:textColor="@color/text_primary"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="25" />
 
             </LinearLayout>
 
@@ -103,10 +105,10 @@
                     android:id="@+id/tvPrecio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$0.00"
                     android:textColor="@color/accent_green"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="$899.99" />
 
             </LinearLayout>
 
@@ -127,9 +129,9 @@
                     android:id="@+id/tvCategoria"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="General"
                     android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:text="Electrónica" />
 
             </LinearLayout>
 

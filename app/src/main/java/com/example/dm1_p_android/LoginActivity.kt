@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.dm1_p_android.data.AppDatabaseHelper
+import com.example.dm1_p_android.network.FirebaseUsuarioService
 import com.example.dm1_p_android.utils.SessionManager
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -93,31 +94,46 @@ class LoginActivity : AppCompatActivity() {
         if (password.isEmpty()) {
             tilPassword.error = "Ingrese la contraseña"
             error = true
-        } else if (password.length < 6) {
-            tilPassword.error = "La contraseña debe tener al menos 6 caracteres"
-            error = true
         } else {
             tilPassword.error = null
         }
         
         if (error) return
         
-        // Login demo (usuarios predefinidos)
-        when {
-            email == "admin@test.com" && password == "123456" -> {
-                sessionManager.login(email, "Administrador")
-                Toast.makeText(this, "Bienvenido Administrador", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
+        CoroutineScope(Dispatchers.Main).launch {
+            val usuario = withContext(Dispatchers.IO) {
+                // Intentar validar con Firebase primero
+                val firebaseUsuario = FirebaseUsuarioService().validarCredenciales(email, password)
+                if (firebaseUsuario != null) {
+                    return@withContext firebaseUsuario.nomUSU
+                }
+                
+                // Si no está en Firebase, validar con SQLite local
+                val dbHelper = AppDatabaseHelper(this@LoginActivity)
+                val db = dbHelper.readableDatabase
+                val cursor = db.query(
+                    "usuarios",
+                    arrayOf("nom_usu", "correo"),
+                    "correo = ? AND clave = ?",
+                    arrayOf(email, password),
+                    null, null, null
+                )
+                var nombreUsuario: String? = null
+                if (cursor.moveToFirst()) {
+                    nombreUsuario = cursor.getString(cursor.getColumnIndexOrThrow("nom_usu"))
+                }
+                cursor.close()
+                db.close()
+                nombreUsuario
             }
-            email == "user@test.com" && password == "123456" -> {
-                sessionManager.login(email, "Usuario")
-                Toast.makeText(this, "Bienvenido Usuario", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, MainActivity::class.java))
+            
+            if (usuario != null) {
+                sessionManager.login(email, usuario)
+                Toast.makeText(this@LoginActivity, "Bienvenido $usuario", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
-            }
-            else -> {
-                Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this@LoginActivity, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
             }
         }
     }

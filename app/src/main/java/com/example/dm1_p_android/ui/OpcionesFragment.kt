@@ -10,7 +10,9 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.dm1_p_android.AgregarProductoActivity
+import com.example.dm1_p_android.LoginActivity
 import com.example.dm1_p_android.R
+import com.example.dm1_p_android.utils.SessionManager
 
 class OpcionesFragment : Fragment() {
 
@@ -28,7 +30,8 @@ class OpcionesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_opciones, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(view) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         fun toggle(menu: View, chevron: ImageView) {
             val showing = menu.visibility == View.VISIBLE
@@ -37,105 +40,138 @@ class OpcionesFragment : Fragment() {
         }
 
         // ===== USUARIOS =====
-        findViewById<LinearLayout>(R.id.btnMembers).setOnClickListener {
-            toggle(findViewById(R.id.subMenu), findViewById(R.id.ivChevron))
+        view.findViewById<LinearLayout>(R.id.btnMembers)?.setOnClickListener {
+            view.findViewById<View>(R.id.subMenu)?.let { menu ->
+                view.findViewById<ImageView>(R.id.ivChevron)?.let { chevron ->
+                    toggle(menu, chevron)
+                }
+            }
         }
-        findViewById<LinearLayout>(R.id.ln_registrarUsuarios).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_registrarUsuarios)?.setOnClickListener {
             Toast.makeText(requireContext(), "Añadir usuarios", Toast.LENGTH_SHORT).show()
             // TODO: navegar a pantalla de alta de usuarios
         }
-        findViewById<LinearLayout>(R.id.ln_verUsuarios).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_verUsuarios)?.setOnClickListener {
             Toast.makeText(requireContext(), "Ver usuarios", Toast.LENGTH_SHORT).show()
             // TODO: navegar a listado de usuarios
         }
 
         // ===== PRODUCTOS =====
-        findViewById<LinearLayout>(R.id.btnProductos).setOnClickListener {
-            toggle(findViewById(R.id.subMenuProductos), findViewById(R.id.ivChevronProductos))
+        view.findViewById<LinearLayout>(R.id.btnProductos)?.setOnClickListener {
+            view.findViewById<View>(R.id.subMenuProductos)?.let { menu ->
+                view.findViewById<ImageView>(R.id.ivChevronProductos)?.let { chevron ->
+                    toggle(menu, chevron)
+                }
+            }
         }
-        findViewById<LinearLayout>(R.id.ln_registrarProducto).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_registrarProducto)?.setOnClickListener {
             val intent = Intent(requireContext(), AgregarProductoActivity::class.java)
             startActivity(intent)
         }
-        findViewById<LinearLayout>(R.id.ln_verProductos).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_verProductos)?.setOnClickListener {
             // TODO: navegar a listado de productos
         }
 
         // ===== CATEGORÍAS =====
-        findViewById<LinearLayout>(R.id.btnCategorias).setOnClickListener {
-            toggle(findViewById(R.id.subMenuCategorias), findViewById(R.id.ivChevronCategorias))
+        view.findViewById<LinearLayout>(R.id.btnCategorias)?.setOnClickListener {
+            view.findViewById<View>(R.id.subMenuCategorias)?.let { menu ->
+                view.findViewById<ImageView>(R.id.ivChevronCategorias)?.let { chevron ->
+                    toggle(menu, chevron)
+                }
+            }
         }
-        findViewById<LinearLayout>(R.id.ln_registrarCategoria).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_registrarCategoria)?.setOnClickListener {
             // TODO: navegar a alta de categoría
         }
-        findViewById<LinearLayout>(R.id.ln_verCategorias).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_verCategorias)?.setOnClickListener {
             // TODO: navegar a listado de categorías
         }
 
         // ===== PROVEEDORES =====
-        findViewById<LinearLayout>(R.id.btnProveedores).setOnClickListener {
-            toggle(findViewById(R.id.subMenuProveedores), findViewById(R.id.ivChevronProveedores))
+        view.findViewById<LinearLayout>(R.id.btnProveedores)?.setOnClickListener {
+            view.findViewById<View>(R.id.subMenuProveedores)?.let { menu ->
+                view.findViewById<ImageView>(R.id.ivChevronProveedores)?.let { chevron ->
+                    toggle(menu, chevron)
+                }
+            }
         }
-        findViewById<LinearLayout>(R.id.ln_registrarProveedor).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_registrarProveedor)?.setOnClickListener {
             // TODO: navegar a alta de proveedor
         }
-        findViewById<LinearLayout>(R.id.ln_verProveedores).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_verProveedores)?.setOnClickListener {
             // TODO: navegar a listado de proveedores
         }
 
         // ===== CLIENTES =====
-        findViewById<LinearLayout>(R.id.btnClientes).setOnClickListener {
-            toggle(findViewById(R.id.subMenuClientes), findViewById(R.id.ivChevronClientes))
+        view.findViewById<LinearLayout>(R.id.btnClientes)?.setOnClickListener {
+            view.findViewById<View>(R.id.subMenuClientes)?.let { menu ->
+                view.findViewById<ImageView>(R.id.ivChevronClientes)?.let { chevron ->
+                    toggle(menu, chevron)
+                }
+            }
         }
-        findViewById<LinearLayout>(R.id.ln_registrarCliente).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_registrarCliente)?.setOnClickListener {
             // TODO: navegar a alta de cliente
         }
-        findViewById<LinearLayout>(R.id.ln_verClientes).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_verClientes)?.setOnClickListener {
             // TODO: navegar a listado de clientes
         }
 
         // ===== COMPRAS =====
-        findViewById<LinearLayout>(R.id.btnCompras).setOnClickListener {
-            toggle(findViewById(R.id.subMenuCompras), findViewById(R.id.ivChevronCompras))
+        view.findViewById<LinearLayout>(R.id.btnCompras)?.setOnClickListener {
+            view.findViewById<View>(R.id.subMenuCompras)?.let { menu ->
+                view.findViewById<ImageView>(R.id.ivChevronCompras)?.let { chevron ->
+                    toggle(menu, chevron)
+                }
+            }
         }
-        findViewById<LinearLayout>(R.id.ln_registrarCompra).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_registrarCompra)?.setOnClickListener {
             // TODO: navegar a registro de compra
         }
-        findViewById<LinearLayout>(R.id.ln_verCompras).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_verCompras)?.setOnClickListener {
             // TODO: navegar a listado de compras
         }
 
         // ===== VENTAS =====
-        findViewById<LinearLayout>(R.id.btnVentas).setOnClickListener {
-            toggle(findViewById(R.id.subMenuVentas), findViewById(R.id.ivChevronVentas))
+        view.findViewById<LinearLayout>(R.id.btnVentas)?.setOnClickListener {
+            view.findViewById<View>(R.id.subMenuVentas)?.let { menu ->
+                view.findViewById<ImageView>(R.id.ivChevronVentas)?.let { chevron ->
+                    toggle(menu, chevron)
+                }
+            }
         }
-        findViewById<LinearLayout>(R.id.ln_registrarVenta).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_registrarVenta)?.setOnClickListener {
             // TODO: navegar a registro de venta
         }
-        findViewById<LinearLayout>(R.id.ln_verVentas).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_verVentas)?.setOnClickListener {
             // TODO: navegar a listado de ventas
         }
 
         // ===== REPORTES =====
-        findViewById<LinearLayout>(R.id.btnReportes).setOnClickListener {
-            toggle(findViewById(R.id.subMenuReportes), findViewById(R.id.ivChevronReportes))
+        view.findViewById<LinearLayout>(R.id.btnReportes)?.setOnClickListener {
+            view.findViewById<View>(R.id.subMenuReportes)?.let { menu ->
+                view.findViewById<ImageView>(R.id.ivChevronReportes)?.let { chevron ->
+                    toggle(menu, chevron)
+                }
+            }
         }
-        findViewById<LinearLayout>(R.id.ln_repVentas).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_repVentas)?.setOnClickListener {
             // TODO: navegar a reporte de ventas
         }
-        findViewById<LinearLayout>(R.id.ln_repCompras).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_repCompras)?.setOnClickListener {
             // TODO: navegar a reporte de compras
         }
-        findViewById<LinearLayout>(R.id.ln_repStockMin).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_repStockMin)?.setOnClickListener {
             // TODO: navegar a reporte de stock mínimo
         }
 
         // ===== CERRAR SESIÓN =====
-        findViewById<LinearLayout>(R.id.btnCerrarSesion).setOnClickListener {
-            // TODO: limpiar sesión y navegar a Login
-            Toast.makeText(requireContext(), "Cerrando sesión…", Toast.LENGTH_SHORT).show()
+        view.findViewById<LinearLayout>(R.id.btnCerrarSesion)?.setOnClickListener {
+            SessionManager(requireContext()).logout()
+            Toast.makeText(requireContext(), "Sesión cerrada", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
+            requireActivity().finish()
         }
-
     }
 
 }

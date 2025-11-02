@@ -70,9 +70,6 @@ class OpcionesFragment : Fragment() {
             val intent = Intent(requireContext(), AgregarProductoActivity::class.java)
             startActivity(intent)
         }
-        view. findViewById<LinearLayout>(R.id.ln_verProductos).setOnClickListener {
-            // TODO: navegar a listado dze productos
-        }
 
         // ===== CATEGORÍAS =====
         view.findViewById<LinearLayout>(R.id.btnCategorias).setOnClickListener {

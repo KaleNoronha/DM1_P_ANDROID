@@ -203,28 +203,7 @@
                         android:textColor="#333333"/>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/ln_verProductos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="8dp"
-                    android:gravity="center_vertical"
-                    android:foreground="?attr/selectableItemBackgroundBorderless">
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_list"
-                        app:tint="@color/black"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="Ver productos"
-                        android:textColor="#333333"/>
-                </LinearLayout>
             </LinearLayout>
 
             <View

@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
                     android:text="@string/registro"
-                    android:textColor="@color/text_primary"
+                    android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -74,10 +74,15 @@
                     android:layout_marginBottom="16dp"
                     android:hint="@string/nombre_usuario"
                     app:boxStrokeColor="@color/accent_green"
-                    app:startIconDrawable="@drawable/ic_person">
+                    app:cursorColor="@color/black"
+                    android:textColorHint="@color/black"
+                    app:startIconDrawable="@drawable/ic_person"
+                    app:startIconTint="@color/black">>
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etNombreUsuario"
+                        android:textColorHint="@color/black"
+                        android:textColor="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName" />
@@ -91,12 +96,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:hint="@string/email"
+                    app:cursorColor="@color/black"
+                    android:textColorHint="@color/black"
                     app:boxStrokeColor="@color/accent_green"
-                    app:startIconDrawable="@drawable/ic_email">
+                    app:startIconDrawable="@drawable/ic_email"
+                    app:startIconTint="@color/black">>
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEmailRegistro"
                         android:layout_width="match_parent"
+                        android:textColorHint="@color/black"
+                        android:textColor="@color/black"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress" />
 
@@ -107,14 +117,20 @@
                     android:id="@+id/tilPasswordRegistro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:cursorColor="@color/black"
+                    android:textColorHint="@color/black"
+
                     android:layout_marginBottom="16dp"
                     android:hint="@string/password"
                     app:boxStrokeColor="@color/accent_green"
                     app:endIconMode="password_toggle"
-                    app:startIconDrawable="@drawable/ic_lock">
+                    app:startIconDrawable="@drawable/ic_lock"
+                    app:startIconTint="@color/black">>
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPasswordRegistro"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword" />
@@ -127,15 +143,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
+                    app:cursorColor="@color/black"
+                    android:textColorHint="@color/black"
                     android:hint="@string/confirmar_password"
                     app:boxStrokeColor="@color/accent_green"
                     app:endIconMode="password_toggle"
-                    app:startIconDrawable="@drawable/ic_lock">
+                    app:startIconDrawable="@drawable/ic_lock"
+                    app:startIconTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etConfirmarPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColorHint="@color/black"
+                        android:textColor="@color/black"
                         android:inputType="textPassword" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -149,6 +170,7 @@
                     android:button="@drawable/ic_checkbox"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
+                    android:textColor="@color/black"
                     android:layout_marginEnd="16dp"/>
 
                 <!-- Botón Registro -->

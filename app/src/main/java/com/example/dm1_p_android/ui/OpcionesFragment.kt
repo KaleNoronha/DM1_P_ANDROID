@@ -1,10 +1,12 @@
 package com.example.dm1_p_android.ui
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -12,7 +14,15 @@ import androidx.fragment.app.Fragment
 import com.example.dm1_p_android.AgregarProductoActivity
 import com.example.dm1_p_android.LoginActivity
 import com.example.dm1_p_android.R
-import com.example.dm1_p_android.utils.SessionManager
+import com.example.dm1_p_android.RegistroActivity
+import com.example.dm1_p_android.data.CategoriaDAO
+import com.example.dm1_p_android.entity.Categoria
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class OpcionesFragment : Fragment() {
 
@@ -40,138 +50,152 @@ class OpcionesFragment : Fragment() {
         }
 
         // ===== USUARIOS =====
-        view.findViewById<LinearLayout>(R.id.btnMembers)?.setOnClickListener {
-            view.findViewById<View>(R.id.subMenu)?.let { menu ->
-                view.findViewById<ImageView>(R.id.ivChevron)?.let { chevron ->
-                    toggle(menu, chevron)
-                }
-            }
+        findViewById<LinearLayout>(R.id.btnMembers).setOnClickListener {
+            toggle(findViewById(R.id.subMenu), findViewById(R.id.ivChevron))
         }
-        view.findViewById<LinearLayout>(R.id.ln_registrarUsuarios)?.setOnClickListener {
-            Toast.makeText(requireContext(), "Añadir usuarios", Toast.LENGTH_SHORT).show()
-            // TODO: navegar a pantalla de alta de usuarios
+        findViewById<LinearLayout>(R.id.ln_registrarUsuarios).setOnClickListener {
+            val intent = Intent(requireContext(), RegistroActivity::class.java)
+            startActivity(intent)
         }
-        view.findViewById<LinearLayout>(R.id.ln_verUsuarios)?.setOnClickListener {
-            Toast.makeText(requireContext(), "Ver usuarios", Toast.LENGTH_SHORT).show()
-            // TODO: navegar a listado de usuarios
+        findViewById<LinearLayout>(R.id.ln_verUsuarios).setOnClickListener {
+            navegarConAnimacion(HistorialUsuarioFragment())
         }
 
         // ===== PRODUCTOS =====
-        view.findViewById<LinearLayout>(R.id.btnProductos)?.setOnClickListener {
-            view.findViewById<View>(R.id.subMenuProductos)?.let { menu ->
-                view.findViewById<ImageView>(R.id.ivChevronProductos)?.let { chevron ->
-                    toggle(menu, chevron)
-                }
-            }
+        findViewById<LinearLayout>(R.id.btnProductos).setOnClickListener {
+            toggle(findViewById(R.id.subMenuProductos), findViewById(R.id.ivChevronProductos))
+
         }
-        view.findViewById<LinearLayout>(R.id.ln_registrarProducto)?.setOnClickListener {
+        findViewById<LinearLayout>(R.id.ln_registrarProducto).setOnClickListener {
             val intent = Intent(requireContext(), AgregarProductoActivity::class.java)
             startActivity(intent)
         }
-        view.findViewById<LinearLayout>(R.id.ln_verProductos)?.setOnClickListener {
-            // TODO: navegar a listado de productos
+        findViewById<LinearLayout>(R.id.ln_verProductos).setOnClickListener {
+            // TODO: navegar a listado dze productos
         }
 
         // ===== CATEGORÍAS =====
-        view.findViewById<LinearLayout>(R.id.btnCategorias)?.setOnClickListener {
-            view.findViewById<View>(R.id.subMenuCategorias)?.let { menu ->
-                view.findViewById<ImageView>(R.id.ivChevronCategorias)?.let { chevron ->
-                    toggle(menu, chevron)
-                }
-            }
+        findViewById<LinearLayout>(R.id.btnCategorias).setOnClickListener {
+            toggle(findViewById(R.id.subMenuCategorias), findViewById(R.id.ivChevronCategorias))
         }
-        view.findViewById<LinearLayout>(R.id.ln_registrarCategoria)?.setOnClickListener {
-            // TODO: navegar a alta de categoría
+        findViewById<LinearLayout>(R.id.ln_registrarCategoria).setOnClickListener {
+            mostrarDialogAgregarCategoria()
         }
-        view.findViewById<LinearLayout>(R.id.ln_verCategorias)?.setOnClickListener {
-            // TODO: navegar a listado de categorías
+        findViewById<LinearLayout>(R.id.ln_verCategorias).setOnClickListener {
+            navegarConAnimacion(HistorialCategoriaFragment())
         }
 
-        // ===== PROVEEDORES =====
-        view.findViewById<LinearLayout>(R.id.btnProveedores)?.setOnClickListener {
-            view.findViewById<View>(R.id.subMenuProveedores)?.let { menu ->
-                view.findViewById<ImageView>(R.id.ivChevronProveedores)?.let { chevron ->
-                    toggle(menu, chevron)
-                }
-            }
-        }
-        view.findViewById<LinearLayout>(R.id.ln_registrarProveedor)?.setOnClickListener {
-            // TODO: navegar a alta de proveedor
-        }
-        view.findViewById<LinearLayout>(R.id.ln_verProveedores)?.setOnClickListener {
-            // TODO: navegar a listado de proveedores
+        findViewById<LinearLayout>(R.id.btnCerrarSesion).setOnClickListener {
+            mostrarDialogCerrarSesion()
         }
 
-        // ===== CLIENTES =====
-        view.findViewById<LinearLayout>(R.id.btnClientes)?.setOnClickListener {
-            view.findViewById<View>(R.id.subMenuClientes)?.let { menu ->
-                view.findViewById<ImageView>(R.id.ivChevronClientes)?.let { chevron ->
-                    toggle(menu, chevron)
-                }
-            }
-        }
-        view.findViewById<LinearLayout>(R.id.ln_registrarCliente)?.setOnClickListener {
-            // TODO: navegar a alta de cliente
-        }
-        view.findViewById<LinearLayout>(R.id.ln_verClientes)?.setOnClickListener {
-            // TODO: navegar a listado de clientes
+    }
+    private fun navegarConAnimacion(fragment: Fragment) {
+        parentFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left,
+                R.anim.slide_in_left,
+                R.anim.slide_out_right
+            )
+            .replace(R.id.fragmentContainer, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+    private fun mostrarDialogAgregarCategoria() {
+        val dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.dialog_agregar_categoria, null)
+
+        val etNuevaCategoria = dialogView.findViewById<TextInputEditText>(R.id.etNuevaCategoria)
+        val tilNuevaCategoria = dialogView.findViewById<TextInputLayout>(R.id.tilNuevaCategoria)
+        val btnCancelar = dialogView.findViewById<Button>(R.id.btnCancelarDialog)
+        val btnGuardar = dialogView.findViewById<Button>(R.id.btnGuardarDialog)
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(true)
+            .create()
+
+        // Botón Cancelar
+        btnCancelar.setOnClickListener {
+            dialog.dismiss()
         }
 
-        // ===== COMPRAS =====
-        view.findViewById<LinearLayout>(R.id.btnCompras)?.setOnClickListener {
-            view.findViewById<View>(R.id.subMenuCompras)?.let { menu ->
-                view.findViewById<ImageView>(R.id.ivChevronCompras)?.let { chevron ->
-                    toggle(menu, chevron)
-                }
+        // Botón Guardar
+        btnGuardar.setOnClickListener {
+            val nombreCategoria = etNuevaCategoria.text.toString().trim()
+
+            if (nombreCategoria.isEmpty()) {
+                tilNuevaCategoria.error = "Ingrese el nombre de la categoría"
+                return@setOnClickListener
             }
-        }
-        view.findViewById<LinearLayout>(R.id.ln_registrarCompra)?.setOnClickListener {
-            // TODO: navegar a registro de compra
-        }
-        view.findViewById<LinearLayout>(R.id.ln_verCompras)?.setOnClickListener {
-            // TODO: navegar a listado de compras
+
+            tilNuevaCategoria.error = null
+            guardarCategoria(nombreCategoria)
+            dialog.dismiss()
         }
 
-        // ===== VENTAS =====
-        view.findViewById<LinearLayout>(R.id.btnVentas)?.setOnClickListener {
-            view.findViewById<View>(R.id.subMenuVentas)?.let { menu ->
-                view.findViewById<ImageView>(R.id.ivChevronVentas)?.let { chevron ->
-                    toggle(menu, chevron)
+        dialog.show()
+    }
+    private fun guardarCategoria(nombreCategoria: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val categoriaDAO = CategoriaDAO(requireContext())
+                val categoria = Categoria(0, nombreCategoria)
+                val id = categoriaDAO.agregarCategoria(categoria)
+
+                withContext(Dispatchers.Main) {
+                    if (id > 0) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Categoría '$nombreCategoria' guardada",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Error al guardar la categoría",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Error: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
-        }
-        view.findViewById<LinearLayout>(R.id.ln_registrarVenta)?.setOnClickListener {
-            // TODO: navegar a registro de venta
-        }
-        view.findViewById<LinearLayout>(R.id.ln_verVentas)?.setOnClickListener {
-            // TODO: navegar a listado de ventas
-        }
-
-        // ===== REPORTES =====
-        view.findViewById<LinearLayout>(R.id.btnReportes)?.setOnClickListener {
-            view.findViewById<View>(R.id.subMenuReportes)?.let { menu ->
-                view.findViewById<ImageView>(R.id.ivChevronReportes)?.let { chevron ->
-                    toggle(menu, chevron)
-                }
-            }
-        }
-        view.findViewById<LinearLayout>(R.id.ln_repVentas)?.setOnClickListener {
-            // TODO: navegar a reporte de ventas
-        }
-        view.findViewById<LinearLayout>(R.id.ln_repCompras)?.setOnClickListener {
-            // TODO: navegar a reporte de compras
-        }
-        view.findViewById<LinearLayout>(R.id.ln_repStockMin)?.setOnClickListener {
-            // TODO: navegar a reporte de stock mínimo
-        }
-
-        // ===== CERRAR SESIÓN =====
-        view.findViewById<LinearLayout>(R.id.btnCerrarSesion)?.setOnClickListener {
-            SessionManager(requireContext()).logout()
-            Toast.makeText(requireContext(), "Sesión cerrada", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(requireContext(), LoginActivity::class.java))
-            requireActivity().finish()
         }
     }
+    private fun mostrarDialogCerrarSesion() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Cerrar Sesión")
+            .setMessage("¿Estás seguro que deseas cerrar sesión?")
+            .setIcon(R.drawable.ic_logout)
+            .setPositiveButton("Salir") { _, _ ->
+                cerrarSesion()
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun cerrarSesion() {
+        // Limpiar SharedPreferences (sesión)
+        val sharedPref = requireContext().getSharedPreferences("user_session", android.content.Context.MODE_PRIVATE)
+        sharedPref.edit().clear().apply()
+
+        // Mostrar mensaje
+        Toast.makeText(requireContext(), "Sesión cerrada exitosamente", Toast.LENGTH_SHORT).show()
+
+        // Navegar al Login y limpiar el back stack
+        val intent = Intent(requireContext(), com.example.dm1_p_android.LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        requireActivity().finish()
+    }
+
 
 }

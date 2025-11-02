@@ -1,46 +1,39 @@
 package com.example.dm1_p_android
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.dm1_p_android.ui.ConfiguracionFragment
 import com.example.dm1_p_android.ui.InicioFragment
 import com.example.dm1_p_android.ui.OpcionesFragment
-import com.example.dm1_p_android.utils.SessionManager
+
+import com.example.dm1_p_android.adapter.ProductoAdapter
+
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
-    
-    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        
-        sessionManager = SessionManager(this)
-        
-        // Verificar si está logueado
-        if (!sessionManager.isLoggedIn()) {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-            return
-        }
 
-        setupBottomNavigation()
-        
-        // Cargar fragment inicial
+        // Cargar fragment inicial (InicioFragment contiene header + lista)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, InicioFragment())
                 .commit()
         }
-    }
-    
-    private fun setupBottomNavigation() {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavMain)
         bottomNav.setOnItemSelectedListener { item ->
             val fragment = when (item.itemId) {
@@ -56,22 +49,30 @@ class MainActivity : AppCompatActivity() {
                 true
             } ?: false
         }
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+//            insets
+//        }
+        
+        actualizarUI()
     }
     
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
+    override fun onResume() {
+        super.onResume()
+        actualizarUI()
     }
     
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_logout -> {
-                sessionManager.logout()
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+    private fun actualizarUI() {
+        val productos = AgregarProductoActivity.listaProductos
+        
+        // Actualizar estadísticas
+//        tvTotalProductos.text = productos.size.toString()
+//        tvStockBajo.text = productos.count { it.stoProd.toIntOrNull() ?: 0 < 10 }.toString()
+//        tvValorTotal.text = "$${productos.sumOf { it.preProd * (it.stoProd.toIntOrNull() ?: 0) }}"
+//
+//        // Configurar RecyclerView
+//        rvProductos.layoutManager = LinearLayoutManager(this)
+//        rvProductos.adapter = ProductoAdapter(productos)
     }
 }

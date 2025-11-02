@@ -153,9 +153,10 @@ class AgregarProductoActivity : AppCompatActivity() {
                 nomProd = nombre,
                 codProd = codigo,
                 stoProd = cantidad,
-                uniMedida = unidadMedida.toDouble(),
+                uniMedida = unidadMedida.toDoubleOrNull() ?: 0.0,
                 preProd = precio.toDouble(),
-                desProd = descripcion
+                desProd = descripcion,
+                Categoria = categoria
             )
             
             listaProductos.add(producto)

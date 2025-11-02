@@ -65,6 +65,14 @@ class MainActivity : AppCompatActivity() {
     
     private fun actualizarUI() {
         val productos = AgregarProductoActivity.listaProductos
-
+        
+        // Actualizar estadísticas
+        tvTotalProductos.text = productos.size.toString()
+        tvStockBajo.text = productos.count { it.stoProd.toIntOrNull() ?: 0 < 10 }.toString()
+        tvValorTotal.text = "$${productos.sumOf { it.preProd * (it.stoProd.toIntOrNull() ?: 0) }}"
+        
+        // Configurar RecyclerView
+        rvProductos.layoutManager = LinearLayoutManager(this)
+        rvProductos.adapter = ProductoAdapter(productos)
     }
 }

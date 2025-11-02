@@ -51,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
         tilPassword = findViewById(R.id.tilPassword)
         btnLogin= findViewById(R.id.btnLogin)
         tvIrARegistro =findViewById(R.id.tvIrARegistro)
-        tvOlvidastePassword  =findViewById(R.id.tvOlvidastePassword)
+
 
         btnLogin.setOnClickListener {
             validarCampos()
@@ -59,9 +59,7 @@ class LoginActivity : AppCompatActivity() {
         tvIrARegistro.setOnClickListener {
             cambioActivity(RegistroActivity::class.java)
         }
-        tvOlvidastePassword.setOnClickListener {
-            cambioActivity(RecuperarPasswordActivity::class.java)
-        }
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

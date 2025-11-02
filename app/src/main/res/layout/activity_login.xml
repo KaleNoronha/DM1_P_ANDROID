@@ -111,16 +111,6 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/tvOlvidastePassword"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginBottom="24dp"
-                    android:text="@string/olvidaste_password"
-                    android:textColor="@color/primary_blue"
-                    android:textSize="14sp" />
-
                 <Button
                     android:id="@+id/btnLogin"
                     android:layout_width="match_parent"

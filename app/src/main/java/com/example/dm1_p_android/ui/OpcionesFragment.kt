@@ -50,42 +50,42 @@ class OpcionesFragment : Fragment() {
         }
 
         // ===== USUARIOS =====
-        findViewById<LinearLayout>(R.id.btnMembers).setOnClickListener {
-            toggle(findViewById(R.id.subMenu), findViewById(R.id.ivChevron))
+        view.findViewById<LinearLayout>(R.id.btnMembers).setOnClickListener {
+            toggle(view.findViewById(R.id.subMenu), view.findViewById(R.id.ivChevron))
         }
-        findViewById<LinearLayout>(R.id.ln_registrarUsuarios).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_registrarUsuarios).setOnClickListener {
             val intent = Intent(requireContext(), RegistroActivity::class.java)
             startActivity(intent)
         }
-        findViewById<LinearLayout>(R.id.ln_verUsuarios).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_verUsuarios).setOnClickListener {
             navegarConAnimacion(HistorialUsuarioFragment())
         }
 
         // ===== PRODUCTOS =====
-        findViewById<LinearLayout>(R.id.btnProductos).setOnClickListener {
-            toggle(findViewById(R.id.subMenuProductos), findViewById(R.id.ivChevronProductos))
+        view.findViewById<LinearLayout>(R.id.btnProductos).setOnClickListener {
+            toggle(view.findViewById(R.id.subMenuProductos), view.findViewById(R.id.ivChevronProductos))
 
         }
-        findViewById<LinearLayout>(R.id.ln_registrarProducto).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_registrarProducto).setOnClickListener {
             val intent = Intent(requireContext(), AgregarProductoActivity::class.java)
             startActivity(intent)
         }
-        findViewById<LinearLayout>(R.id.ln_verProductos).setOnClickListener {
+        view. findViewById<LinearLayout>(R.id.ln_verProductos).setOnClickListener {
             // TODO: navegar a listado dze productos
         }
 
         // ===== CATEGORÍAS =====
-        findViewById<LinearLayout>(R.id.btnCategorias).setOnClickListener {
-            toggle(findViewById(R.id.subMenuCategorias), findViewById(R.id.ivChevronCategorias))
+        view.findViewById<LinearLayout>(R.id.btnCategorias).setOnClickListener {
+            toggle(view.findViewById(R.id.subMenuCategorias), view.findViewById(R.id.ivChevronCategorias))
         }
-        findViewById<LinearLayout>(R.id.ln_registrarCategoria).setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.ln_registrarCategoria).setOnClickListener {
             mostrarDialogAgregarCategoria()
         }
-        findViewById<LinearLayout>(R.id.ln_verCategorias).setOnClickListener {
+        view. findViewById<LinearLayout>(R.id.ln_verCategorias).setOnClickListener {
             navegarConAnimacion(HistorialCategoriaFragment())
         }
 
-        findViewById<LinearLayout>(R.id.btnCerrarSesion).setOnClickListener {
+        view. findViewById<LinearLayout>(R.id.btnCerrarSesion).setOnClickListener {
             mostrarDialogCerrarSesion()
         }
 

@@ -58,7 +58,7 @@ class OpcionesFragment : Fragment() {
             startActivity(intent)
         }
         findViewById<LinearLayout>(R.id.ln_verProductos).setOnClickListener {
-            // TODO: navegar a listado de productos
+            // TODO: navegar a listado dze productos
         }
 
         // ===== CATEGORÍAS =====
@@ -70,64 +70,6 @@ class OpcionesFragment : Fragment() {
         }
         findViewById<LinearLayout>(R.id.ln_verCategorias).setOnClickListener {
             // TODO: navegar a listado de categorías
-        }
-
-        // ===== PROVEEDORES =====
-        findViewById<LinearLayout>(R.id.btnProveedores).setOnClickListener {
-            toggle(findViewById(R.id.subMenuProveedores), findViewById(R.id.ivChevronProveedores))
-        }
-        findViewById<LinearLayout>(R.id.ln_registrarProveedor).setOnClickListener {
-            // TODO: navegar a alta de proveedor
-        }
-        findViewById<LinearLayout>(R.id.ln_verProveedores).setOnClickListener {
-            // TODO: navegar a listado de proveedores
-        }
-
-        // ===== CLIENTES =====
-        findViewById<LinearLayout>(R.id.btnClientes).setOnClickListener {
-            toggle(findViewById(R.id.subMenuClientes), findViewById(R.id.ivChevronClientes))
-        }
-        findViewById<LinearLayout>(R.id.ln_registrarCliente).setOnClickListener {
-            // TODO: navegar a alta de cliente
-        }
-        findViewById<LinearLayout>(R.id.ln_verClientes).setOnClickListener {
-            // TODO: navegar a listado de clientes
-        }
-
-        // ===== COMPRAS =====
-        findViewById<LinearLayout>(R.id.btnCompras).setOnClickListener {
-            toggle(findViewById(R.id.subMenuCompras), findViewById(R.id.ivChevronCompras))
-        }
-        findViewById<LinearLayout>(R.id.ln_registrarCompra).setOnClickListener {
-            // TODO: navegar a registro de compra
-        }
-        findViewById<LinearLayout>(R.id.ln_verCompras).setOnClickListener {
-            // TODO: navegar a listado de compras
-        }
-
-        // ===== VENTAS =====
-        findViewById<LinearLayout>(R.id.btnVentas).setOnClickListener {
-            toggle(findViewById(R.id.subMenuVentas), findViewById(R.id.ivChevronVentas))
-        }
-        findViewById<LinearLayout>(R.id.ln_registrarVenta).setOnClickListener {
-            // TODO: navegar a registro de venta
-        }
-        findViewById<LinearLayout>(R.id.ln_verVentas).setOnClickListener {
-            // TODO: navegar a listado de ventas
-        }
-
-        // ===== REPORTES =====
-        findViewById<LinearLayout>(R.id.btnReportes).setOnClickListener {
-            toggle(findViewById(R.id.subMenuReportes), findViewById(R.id.ivChevronReportes))
-        }
-        findViewById<LinearLayout>(R.id.ln_repVentas).setOnClickListener {
-            // TODO: navegar a reporte de ventas
-        }
-        findViewById<LinearLayout>(R.id.ln_repCompras).setOnClickListener {
-            // TODO: navegar a reporte de compras
-        }
-        findViewById<LinearLayout>(R.id.ln_repStockMin).setOnClickListener {
-            // TODO: navegar a reporte de stock mínimo
         }
 
         // ===== CERRAR SESIÓN =====

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "709490188891",
+    "firebase_url": "https://inventario-2f11e-default-rtdb.firebaseio.com",
+    "project_id": "inventario-2f11e",
+    "storage_bucket": "inventario-2f11e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:709490188891:android:20e6ee37894dd3a6d7557e",
+        "android_client_info": {
+          "package_name": "com.example.dm1_p_android"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPSzcK5g1TgiB3JKZEwSK157cSxu5eBrE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

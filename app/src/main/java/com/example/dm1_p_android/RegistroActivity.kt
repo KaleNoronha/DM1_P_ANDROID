@@ -92,6 +92,7 @@ class RegistroActivity : AppCompatActivity() {
         } else {
             tilPasswordRegistro.error = ""
         }
+        //COmmit
         val password = etPasswordRegistro.text.toString().trim()
         val confirmPassword = etConfirmarPassword.text.toString().trim()
         if (confirmPassword.isEmpty()) {
